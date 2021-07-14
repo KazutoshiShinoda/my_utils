@@ -1,1 +1,1 @@
-from levenshtein import *
+from .levenshtein import *
