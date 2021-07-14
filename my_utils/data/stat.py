@@ -17,7 +17,6 @@ class Statistics(object):
         mean_stat = {}
         for key, value in self.global_stat.items():
             mean_stat[key] = value / self.global_update
-        mean_stat['NumOfUpdates'] = self.global_update
         return mean_stat
 
     def loccal_mean(self):
