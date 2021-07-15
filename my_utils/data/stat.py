@@ -14,12 +14,16 @@ class Statistics(object):
         self.global_update += 1
 
     def mean(self):
+        if self.global_update == 0:
+            return {}
         mean_stat = {}
         for key, value in self.global_stat.items():
             mean_stat[key] = value / self.global_update
         return mean_stat
 
     def loccal_mean(self):
+        if self.global_update - self.previous_update == 0:
+            return {}
         mean_stat = {}
         for key, value in self.global_stat.items():
             mean_stat[key] = (value - self.previous_stat.get(key, 0)) / \
