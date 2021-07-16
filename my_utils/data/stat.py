@@ -10,7 +10,7 @@ class Statistics(object):
 
     def update_dict(self, stat_dict):
         for key, value in stat_dict.items():
-            self.global_stat[key] = global_self.stat.get(key, 0) + value
+            self.global_stat[key] = self.global_stat.get(key, 0) + value
         self.global_update += 1
 
     def mean(self):
