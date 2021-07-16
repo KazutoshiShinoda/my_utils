@@ -21,7 +21,7 @@ class Statistics(object):
             mean_stat[key] = value / self.global_update
         return mean_stat
 
-    def loccal_mean(self):
+    def local_mean(self):
         if self.global_update - self.previous_update == 0:
             return {}
         mean_stat = {}
