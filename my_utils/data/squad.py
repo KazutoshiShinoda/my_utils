@@ -26,6 +26,7 @@ class SQuADv1(object):
                         if w in cw:
                             n += 1
                     overlap = n / len(qw)
+                    qa_id = qa['id']
                     examples.append(SQuADv1Example(c, q, a, qa_id, overlap))
         return examples
 
