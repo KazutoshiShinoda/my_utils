@@ -19,9 +19,8 @@ class SQuADv1(object):
         return examples
 
 class SQuADv1Example(object):
-    def __init__(self, context, question, answer, qa_id, overlap):
+    def __init__(self, context, question, answer, qa_id):
         self.context = context
         self.question = question
         self.answer = answer
         self.qa_id = qa_id
-        self.overlap = overlap
