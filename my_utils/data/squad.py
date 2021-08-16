@@ -1,7 +1,3 @@
-import spacy
-nlp = spacy.load("en_core_web_sm")
-
-
 class SQuADv1(object):
     def __init__(self, data):
         assert isinstance(data, dict)
@@ -15,18 +11,9 @@ class SQuADv1(object):
         for d in data['data']:
             for para in d['paragraphs']:
                 c = para['context']
-                doc = nlp(c)
-                cw = [t.text.lower() for t in doc]
                 for qa in para['qas']:
                     q = qa['question']
                     a = qa['answers'][0]['text']
-                    qw = [t.text.lower() for t in nlp(q)]
-                    n = 0
-                    for w in qw:
-                        if w in cw:
-                            n += 1
-                    overlap = n / len(qw)
-                    qa_id = qa['id']
                     examples.append(SQuADv1Example(c, q, a, qa_id, overlap))
         return examples
 
