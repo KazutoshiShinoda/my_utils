@@ -14,6 +14,7 @@ class SQuADv1(object):
                 for qa in para['qas']:
                     q = qa['question']
                     a = qa['answers'][0]['text']
+                    qa_id = qa['id']
                     examples.append(SQuADv1Example(c, q, a, qa_id, overlap))
         return examples
 
