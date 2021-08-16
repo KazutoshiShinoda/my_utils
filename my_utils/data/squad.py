@@ -15,7 +15,7 @@ class SQuADv1(object):
                     q = qa['question']
                     a = qa['answers'][0]['text']
                     qa_id = qa['id']
-                    examples.append(SQuADv1Example(c, q, a, qa_id, overlap))
+                    examples.append(SQuADv1Example(c, q, a, qa_id))
         return examples
 
 class SQuADv1Example(object):
