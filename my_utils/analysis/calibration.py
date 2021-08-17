@@ -54,7 +54,7 @@ def calibration_error(confidences, scores, type=''):
         lowerbound2stat = {i: Statistics() for i in bins[:-1]}
         for c, s in zip(confidences, scores):
             lb = round(math.floor(c * 10) * 0.1, 1)
-            lowerbound2stat[lb].update_dict{'score': s, 'conf': c}
+            lowerbound2stat[lb].update_dict({'score': s, 'conf': c})
         counts = [lowerbound2stat[lb].global_update for lb in bins[:-1]]
         mean_values = [lowerbound2stat[lb].mean() if lowerbound2stat[lb].global_update > 0 else 0 for lb in bins[:-1]]
         errors = [np.abs(v['score'] - v['conf']) for v in mean_values]
