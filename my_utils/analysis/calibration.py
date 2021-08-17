@@ -53,7 +53,10 @@ def calibration_error(confidences, scores, type=''):
     if type == 'ece':
         lowerbound2stat = {i: Statistics() for i in bins[:-1]}
         for c, s in zip(confidences, scores):
-            lb = round(math.floor(c * 10) * 0.1, 1)
+            for i in range(len(bins) - 1):
+                if bins[i] <= c <= bins[i+1]:
+                    lb = bins[i]
+                    break
             lowerbound2stat[lb].update_dict({'score': s, 'conf': c})
         counts = [lowerbound2stat[lb].global_update for lb in bins[:-1]]
         mean_values = [lowerbound2stat[lb].mean() if lowerbound2stat[lb].global_update > 0 else 0 for lb in bins[:-1]]
