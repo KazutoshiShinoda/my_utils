@@ -24,7 +24,10 @@ def plot_reliability(confidences, scores, title='Reliability', xlabel='Confidenc
     assert len(confidences) == len(scores)
     lowerbound2stat = {i: Statistics() for i in bins[:-1]}
     for c, s in zip(confidences, scores):
-        lb = round(math.floor(c * 10) * 0.1, 1)
+        for i in range(len(bins) - 1):
+            if bins[i] <= c <= bins[i+1]:
+                lb = bins[i]
+                break
         lowerbound2stat[lb].update_dict({'score': s})
 
     counts = [lowerbound2stat[lb].global_update for lb in bins[:-1]]
