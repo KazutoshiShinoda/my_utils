@@ -65,7 +65,7 @@ def calibration_error(confidences, scores, type=''):
         n = sum(counts)
         for count, error in zip(counts, errors):
             ece += count * error / n
-        return np.abs(np.array(confidences) - np.array(scores)).sum()
+        return ece
     elif type == 'mce':
         return np.max(np.array(confidences) - np.array(scores))
     else:
