@@ -49,7 +49,19 @@ def plot_reliability(confidences, scores, title='Reliability', xlabel='Confidenc
         fig.savefig(output_file)
 
 def calibration_error(confidences, scores, type=''):
+    assert len(confidences) == len(scores)
     if type == 'ece':
+        lowerbound2stat = {i: Statistics() for i in bins[:-1]}
+        for c, s in zip(confidences, scores):
+            lb = round(math.floor(c * 10) * 0.1, 1)
+            lowerbound2stat[lb].update_dict{'score': s, 'conf': c}
+        counts = [lowerbound2stat[lb].global_update for lb in bins[:-1]]
+        mean_values = [lowerbound2stat[lb].mean() if lowerbound2stat[lb].global_update > 0 else 0 for lb in bins[:-1]]
+        errors = [np.abs(v['score'] - v['conf']) for v in mean_values]
+        ece = 0
+        n = sum(counts)
+        for count, error in zip(counts, errors):
+            ece += count * error / n
         return np.abs(np.array(confidences) - np.array(scores)).sum()
     elif type == 'mce':
         return np.max(np.array(confidences) - np.array(scores))
