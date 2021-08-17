@@ -51,7 +51,6 @@ def plot_reliability(confidences, scores, title='Reliability', xlabel='Confidenc
 def calibration_error(confidences, scores, type=''):
     assert len(confidences) == len(scores)
     assert type in ['ece', 'mce']
-    if type == 'ece':
     lowerbound2stat = {i: Statistics() for i in bins[:-1]}
     for c, s in zip(confidences, scores):
         for i in range(len(bins) - 1):
