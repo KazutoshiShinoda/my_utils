@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import matplotlib
+import numpy as np
 matplotlib.font_manager._rebuild()
 plt.rcParams['font.family'] = 'Times New Roman'
 plt.rcParams['axes.axisbelow'] = True
@@ -46,3 +47,11 @@ def plot_reliability(confidences, scores, title='Reliability', xlabel='Confidenc
         plt.show()
     if output_file is not None:
         fig.savefig(output_file)
+
+def calibration_error(confidences, scores, type=''):
+    if type == 'ece':
+        return np.abs(np.array(confidences) - np.array(scores)).sum()
+    elif type == 'mce':
+        return np.max(np.array(confidences) - np.array(scores))
+    else:
+        raise ValueError(f"type: {type} is not implemented.")
